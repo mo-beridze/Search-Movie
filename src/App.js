@@ -1,25 +1,79 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import * as React from "react";
+import NavBar from "./components/FilmSearch/Navigation/NavBar";
+import { Grid } from "@mui/material";
 
-function App() {
+const HomeView = React.lazy(() => import("./components/FilmSearch/HomePage/HomeView"));
+const SearchMovie = React.lazy(() =>
+  import("./components/FilmSearch/Search Movie Page/SearchMovie")
+);
+const NotFoundView = React.lazy(() =>
+  import("./components/FilmSearch/Not Found Page/NotFoundView")
+);
+const MovieInformation = React.lazy(() =>
+  import("./components/FilmSearch/Description Movie Page/MovieInformation")
+);
+const DescriptionMovie = React.lazy(() =>
+  import("./components/FilmSearch/Description Movie Page/Casts")
+);
+
+export default function FilmSearch() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Grid
+        sx={{
+          backgroundColor: "#1c1c1e",
+          width: "100vw",
+          height: "100vh",
+        }}
+      >
+        <Grid sx={{ marginTop: "64px", paddingBottom: "10px" }}>
+          <NavBar />
+        </Grid>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <HomeView />
+              </React.Suspense>
+            }
+          ></Route>
+          <Route
+            path="movies"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <SearchMovie />
+              </React.Suspense>
+            }
+          ></Route>
+          <Route
+            path="movies/:movieid"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <MovieInformation />
+              </React.Suspense>
+            }
+          >
+            <Route
+              path="cast"
+              element={
+                <React.Suspense fallback={<>...</>}>
+                  <DescriptionMovie />
+                </React.Suspense>
+              }
+            />
+          </Route>
+          <Route
+            path="*"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <NotFoundView />
+              </React.Suspense>
+            }
+          ></Route>
+        </Routes>
+      </Grid>
+    </>
   );
 }
-
-export default App;
