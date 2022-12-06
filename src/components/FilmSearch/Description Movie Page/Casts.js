@@ -13,12 +13,13 @@ import {
 import { img_300 } from "../Config/config";
 
 export default function DescriptionMovie() {
-  const [cast, setCast] = useOutletContext();
+  const [cast] = useOutletContext();
 
   const [actors, setActors] = useState([]);
   useEffect(() => {
     const newCast = cast.cast.slice(0, 19);
     setActors(newCast);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Grid width="900px" display="block">

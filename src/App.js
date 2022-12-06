@@ -25,6 +25,7 @@ export default function FilmSearch() {
           backgroundColor: "#1c1c1e",
           width: "100vw",
           height: "100vh",
+          overflowX: "hidden",
         }}
       >
         <Grid sx={{ marginTop: "64px", paddingBottom: "10px" }}>
